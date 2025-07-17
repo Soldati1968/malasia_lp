@@ -208,7 +208,7 @@ img {
 .image-banner {
     background-size: cover;
     background-position: center;
-    height: 120px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
