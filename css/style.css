@@ -190,15 +190,20 @@ img {
 .ad-banner-top {
     margin-top: 0;
     margin-bottom: 0;
-    min-height: auto;
+    height: 60px; /* o el valor deseado */
+    overflow: hidden;
     background-color: transparent;
 }
+
 .ad-banner-top img {
     display: block;
     margin: 0;
     padding: 0;
     border: 0;
+    height: 100%;      /* se ajusta al contenedor */
+    object-fit: contain; /* evita deformación */
 }
+
 .bottom-ads {
     display: flex;
     flex-direction: column;
