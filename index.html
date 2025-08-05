@@ -306,22 +306,26 @@
   </script>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const headline = document.querySelector('.main-title');
-      if (headline) {
-        fetch('http://ip-api.com/json/?fields=status,city')
-          .then(response => response.json())
-          .then(data => {
-            if (data.status === 'success' && data.city) {
-              headline.textContent = `Pemuda Dari ${data.city} Menjana Pendapatan Luar Biasa di 2025`;
-            }
-          })
-          .catch(error => {
-            console.error('Error al obtener la geolocalización:', error);
-          });
-      }
-    });
-  </script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const headline = document.querySelector(".main-title");
+    if (headline) {
+      const city = window.CITY_NAME || "";
+      const code = window.COUNTRY_CODE || "MY";
+      const countries = {
+        "MY": "Malaysia",
+        "ID": "Indonesia",
+        "PH": "Filipina",
+        "IN": "India",
+        "PK": "Pakistan",
+        "BD": "Bangladesh",
+        "ES": "Sepanyol"
+      };
+      const location = city ? city : countries[code] || "negara anda";
+      headline.textContent = `Pemuda Dari ${location} Menjana Pendapatan Luar Biasa di 2025`;
+    }
+  });
+</script>
+
 
 </body>
 </html>
