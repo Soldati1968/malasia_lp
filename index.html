@@ -305,23 +305,31 @@
     document.getElementById("publish-date").textContent = formattedDate;
   </script>
 
-  <script>
+<script>
   document.addEventListener("DOMContentLoaded", function () {
-    const headline = document.querySelector(".main-title");
+    const headline = document.querySelector('.main-title');
     if (headline) {
-      const city = window.CITY_NAME || "";
-      const code = window.COUNTRY_CODE || "MY";
-      const countries = {
-        "MY": "Malaysia",
-        "ID": "Indonesia",
-        "PH": "Filipina",
-        "IN": "India",
-        "PK": "Pakistan",
-        "BD": "Bangladesh",
-        "ES": "Sepanyol"
-      };
-      const location = city ? city : countries[code] || "negara anda";
-      headline.textContent = `Pemuda Dari ${location} Menjana Pendapatan Luar Biasa di 2025`;
+      fetch("https://ip-api.com/json/?fields=status,country,city")
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "success") {
+            const city = data.city;
+            const country = data.country;
+
+            if (city && city.trim().length > 0) {
+              headline.textContent = `Pemuda Dari ${city} Menjana Pendapatan Luar Biasa di 2025`;
+            } else if (country && country.trim().length > 0) {
+              headline.textContent = `Pemuda Dari ${country} Menjana Pendapatan Luar Biasa di 2025`;
+            } else {
+              headline.textContent = `Pemuda Ini Menjana Pendapatan Luar Biasa di 2025`; // fallback final
+            }
+          } else {
+            console.warn("No se pudo obtener ubicación");
+          }
+        })
+        .catch(error => {
+          console.error("Error en la geolocalización:", error);
+        });
     }
   });
 </script>
